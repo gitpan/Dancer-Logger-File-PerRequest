@@ -22,11 +22,11 @@ no_index:
     - eg
     - examples
 requires:
-  Dancer: 0
+  Dancer: 1.3113
   Scalar::Util: 0
   perl: 5.008005
 resources:
   bugtracker: https://github.com/fayland/perl-Dancer-Logger-File-PerRequest/issues
   homepage: https://github.com/fayland/perl-Dancer-Logger-File-PerRequest
   repository: https://github.com/fayland/perl-Dancer-Logger-File-PerRequest.git
-version: 0.01
+version: 0.02

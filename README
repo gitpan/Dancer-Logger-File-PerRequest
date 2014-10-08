@@ -10,9 +10,10 @@ DESCRIPTION
     Dancer::Logger::File::PerRequest is a per-request file-based logging
     engine for Dancer.
 
-  logfile_callback
-    By default, it will be generating YYYYMMDDHHMMSS_$pid.log under logs of
-    application dir.
+  SETTINGS
+   logfile_callback
+    By default, it will be generating YYYYMMDDHHMMSS-$pid-$request_id.log
+    under logs of application dir.
 
     the stuff can be configured as
 
@@ -37,8 +38,29 @@ DESCRIPTION
     it's quite flexible that you can configure it as daily or daily + pid +
     server or whatever.
 
-  log_path
+   log_path
     the log path, same as Dancer::Logger::File, default to $appdir/logs
+
+  HOOKS
+   before_file_per_request_close
+        hook 'before_file_per_request_close' => sub {
+            my ($fh, $logfile) = @_;
+
+            print $fh "# END on " . scalar(localtime()) . "\n";
+        };
+
+   after_file_per_request_close
+        hook 'after_file_per_request_close' => sub {
+            my ($logfile, $response) = @_;
+
+            # response as Dancer::Response
+            if ($response->status >= 500) { ## server error
+                # move file to error dir
+            } else {
+                # just rm it?
+                unlink($logfile);
+            }
+        };
 
 AUTHOR
     Fayland Lam <fayland@gmail.com>

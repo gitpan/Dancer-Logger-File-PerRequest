@@ -21,13 +21,13 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "Dancer::Logger::File::PerRequest",
   "PREREQ_PM" => {
-    "Dancer" => 0,
+    "Dancer" => "1.3113",
     "Scalar::Util" => 0
   },
   "TEST_REQUIRES" => {
     "Test::More" => "0.96"
   },
-  "VERSION" => "0.01",
+  "VERSION" => "0.02",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -35,7 +35,7 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
-  "Dancer" => 0,
+  "Dancer" => "1.3113",
   "Scalar::Util" => 0,
   "Test::More" => "0.96"
 );
