@@ -29,4 +29,4 @@ resources:
   bugtracker: https://github.com/fayland/perl-Dancer-Logger-File-PerRequest/issues
   homepage: https://github.com/fayland/perl-Dancer-Logger-File-PerRequest
   repository: https://github.com/fayland/perl-Dancer-Logger-File-PerRequest.git
-version: 0.02
+version: 0.03

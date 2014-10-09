@@ -3,7 +3,7 @@ package Dancer::Logger::File::PerRequest;
 use strict;
 use warnings;
 use 5.008_005;
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use Carp;
 use base 'Dancer::Logger::Abstract';
@@ -39,7 +39,7 @@ sub init {
 
     # per request
     Scalar::Util::weaken $self;
-    Dancer::Hook->new('after' => sub {
+    my $on_end = sub {
         return unless $self->{fh};
 
         Dancer::Factory::Hook->execute_hooks('before_file_per_request_close', $self->{fh}, $self->{logfile});
@@ -47,7 +47,11 @@ sub init {
         undef $self->{fh};
         Dancer::Factory::Hook->execute_hooks('after_file_per_request_close', $self->{logfile}, Dancer::SharedData->response);
         undef $self->{logfile};
-    });
+    };
+    Dancer::Hook->new('after' => $on_end);
+    if (setting('serializer')) { # when serializer, on error, it's not call 'after' hook
+        Dancer::Hook->new('after_error_render' => $on_end);
+    }
 }
 
 sub _log {
